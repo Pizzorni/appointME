@@ -77,11 +77,11 @@ WSGI_APPLICATION = 'appointME.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'appMEdb',
-        'USER': 'admin',
+        'NAME': 'appointME',
+        'USER': 'appointMEuser',
         'PASSWORD': 'password',
-        'HOST': '127.0.0.1',
-        'PORT': '6969'
+        'HOST': 'localhost',
+        'PORT': ''
     }
 }
 
