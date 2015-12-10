@@ -3,4 +3,4 @@ from django.http import HttpResponse
 # Create your views here.
 
 def index(request):
-    return HttpResponse("Hello, World. Welcome to the scheduler index.")
+    return HttpResponse("Hello, World. You win.")
