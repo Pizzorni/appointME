@@ -9,6 +9,7 @@ class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     major = models.ManyToManyField(AreaOfStudy, verbose_name = "list of majors")
     minor = models.ManyToManyField(AreaOfStudy, verbose_name - "list of minors")
+    gpa = models.DecimalField(max_digits = 3, decimal_places = 2)
 
     FRESHMAN = 'FR'
     SOPHOMORE = 'SO'
