@@ -5,12 +5,25 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    major = models.ManyToManyField(AreaOfStudy, verbose_name = "list of majors")
-    minor = models.ManyToManyField(AreaOfStudy, verbose_name - "list of minors")
     gpa = models.DecimalField(max_digits = 3, decimal_places = 2)
 
+    COMPSCI = 'CS'
+    MATH = 'MATH'
+    ECONOMICS = 'ECON'
+    ENGLISH = 'ENGL'
+    MAJOR_CHOICES = (
+        (MATH, 'Mathematics'),
+        (COMPSCI, 'Computer Science'),
+        (ECONOMICS, 'Economics'),
+        (ENGLISH, 'English'),
+    )
+
+    major = models.CharField(max_length = 4,
+                            choices = MAJOR_CHOICES,
+                            default = ENGLISH)
     FRESHMAN = 'FR'
     SOPHOMORE = 'SO'
     JUNIOR = 'JR'
@@ -25,22 +38,8 @@ class Student(models.Model):
                                     choices = YEAR_IN_SCHOOL_CHOICES,
                                     default = FRESHMAN)
     
-class AreaOfStudy(models.Model):
-    COMPSCI = 'CS'
-    MATH = 'MATH'
-    ECONOMICS = 'ECON'
-    ENGLISH = 'ENGL'
-    MAJOR_CHOICES = (
-        (MATH, 'Mathematics'),
-        (COMPSCI, 'Computer Science'),
-        (ECONOMICS, 'Economics'),
-        (ENGLISH, 'English'),
-    )
-    areaofstudy = models.CharField(max_length = 4,
-                            choices = MAJOR_CHOICES,
-                            default = ENGLISH)
 
 
-class Advisor(models.Model):
+#class Advisor(models.Model):
 
-class Posting(models.Model):
+#class Posting(models.Model):
