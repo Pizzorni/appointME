@@ -21,9 +21,10 @@ class Student(models.Model):
         (ENGLISH, 'English'),
     )
 
-    major = models.CharField(max_length = 4,
-                            choices = MAJOR_CHOICES,
-                            default = ENGLISH)
+    majorOne = models.CharField(max_length = 4, choices = MAJOR_CHOICES, default = ENGLISH)
+    majorTwo = models.CharField(max_length = 4, choices = MAJOR_CHOICES, default = ECONOMICS)
+    minor = models.CharField(max_length = 4, choices = MAJOR_CHOICES, default = null)
+
     FRESHMAN = 'FR'
     SOPHOMORE = 'SO'
     JUNIOR = 'JR'
@@ -34,12 +35,59 @@ class Student(models.Model):
         (JUNIOR, 'Junior'),
         (SENIOR, 'Senior'),
     )
-    year_in_school = models.CharField(max_length=2,
-                                    choices = YEAR_IN_SCHOOL_CHOICES,
-                                    default = FRESHMAN)
-    
+    year_in_school = models.CharField(max_length=2, choices = YEAR_IN_SCHOOL_CHOICES, default = FRESHMAN)
+
+    def getName(self):
+        return self.user.get_full_name()
+    def getGPA(self):
+        return self.gpa
+    def getYear(self):
+        return self.year_in_school
+    def getMajorOne(self):
+        return self.majorOne
+    def getMajorTwo(self):
+        return self.majorTwo
+    def getMajors(self):
+        majors = []
+        majors.append(self.majorOne)
+        majors.append(self.majorTwo)
+        return majors
+    def getMinor(self):
+        return self.minor
+    def printName(self):
+        return "Name:", self.user.get_full_name()
+    def printGPA(self):
+        return "GPA:", self.gpa
+    def printMajors(self):
+        return "First Major:" , self.majorOne, "Second Major:", self.majorTwo
+    def printMinors(self):
+        return "Minor:", self.minor
+    def printYear(self):
+        return "Academic Year:", self.year_in_school
+    def printStudentInfo(self):
+        name = printName()
+        gpa = printGPA()
+        majors = printMajors()
+        minor = printMinors()
+        year = printYear()
+        return name + "\n" + gpa + "\n" + majors + "\n" + minors + "\n" + year 
 
 
-#class Advisor(models.Model):
+class Advisor(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    officeLocation =  models.CharField(max_length = 20)
+
 
 #class Posting(models.Model):
+
+
+
+
+
+
+
+
+
+
+
+
