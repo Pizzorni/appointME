@@ -14,16 +14,19 @@ class Student(models.Model):
     MATH = 'MATH'
     ECONOMICS = 'ECON'
     ENGLISH = 'ENGL'
+    NONE = 'NONE'
     MAJOR_CHOICES = (
         (MATH, 'Mathematics'),
         (COMPSCI, 'Computer Science'),
         (ECONOMICS, 'Economics'),
         (ENGLISH, 'English'),
+        (NONE, 'None'),
     )
 
+
     majorOne = models.CharField(max_length = 4, choices = MAJOR_CHOICES, default = ENGLISH)
-    majorTwo = models.CharField(max_length = 4, choices = MAJOR_CHOICES, default = ECONOMICS)
-    minor = models.CharField(max_length = 4, choices = MAJOR_CHOICES)
+    majorTwo = models.CharField(max_length = 4, choices = MAJOR_CHOICES, default = NONE)
+    minor = models.CharField(max_length = 4, choices = MAJOR_CHOICES, default = NONE)
 
     FRESHMAN = 'FR'
     SOPHOMORE = 'SO'
