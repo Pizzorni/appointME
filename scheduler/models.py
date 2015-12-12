@@ -5,29 +5,13 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-class Subjects(models.Model):
-#    COMPSCI = 'CS'
-#    MATH = 'MATH'
-#    ECONOMICS = 'ECON'
-#    ENGLISH = 'ENGL'
-#    NONE = 'NONE'
-#    MAJOR_CHOICES = (
-#        (MATH, 'Mathematics'),
-#        (COMPSCI, 'Computer Science'),
-#        (ECONOMICS, 'Economics'),
-#        (ENGLISH, 'English'),
-#       (NONE, 'None'),
-#    )
-    major = models.CharField(max_length = 8, default = "None")
 
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     gpa = models.DecimalField(max_digits = 3, decimal_places = 2)
-
-
-    majorOne = models.ManyToManyField(Subjects, related_name="majorOne")
-    majorTwo = models.ManyToManyField(Subjects, related_name ="majorTwo")
-    minor = models.ManyToManyField(Subjects)
+    majorOne = models.CharField(max_length = 8, default = "None")
+    majorTwo = models.CharField(max_length = 8, default = "None")
+    minor = models.CharField(max_length = 8, default = "None")
     year_in_school = models.CharField(max_length=20, default = "Freshman")
 
     def getName(self):
@@ -70,7 +54,7 @@ class Student(models.Model):
 class Advisor(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     officeLocation =  models.CharField(max_length = 20)
-    specialty = models.ForeignKey(Subjects, null = True, on_delete = models.CASCADE)
+    specialty = models.CharField(max_length = 8, default = "None")
 
 #class Posting(models.Model):
 
