@@ -4,6 +4,8 @@ from django.template import Context, loader
 
 # Create your views here.
 
+# Anonymous views
+#################
 def index(request):
     template = loader.get_template('index.html')
     return HttpResponse(template.render())
