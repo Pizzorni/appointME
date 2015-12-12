@@ -1,14 +1,15 @@
 {% extends 'base.html' %}
 
-{% block title %}Login{% endblock %}
+{% block title %}Register{% endblock %}
 
 {% block main %}
-This is the appointME login page
+This is the appointME register page. Please choose a strong password.
 <form name="login" action="" method="get" accept-charset="utf-8">
     <label for="username">Email</label>
     <input type="text" name="username" placeholder="username" required><br>
     <label for="password">Password</label>
     <input type="password" name="password" placeholder="password" required><br>
-    <input type="submit" name="Log in">
+    <label for="password">Password</label>
+    <input type="submit" method="get" name="Register">
 </form>
 {% endblock %}

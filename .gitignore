@@ -7,3 +7,5 @@ lib/
 /scheduler/migrations/
 .idea
 appointME/*.pyc
+appointME/__init__.pyc
+appointME/settings.pyc
