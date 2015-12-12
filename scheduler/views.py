@@ -5,7 +5,7 @@ from django.template import Context, loader
 # Create your views here.
 
 # Anonymous views
-#################
+#################s
 def index(request):
     template = loader.get_template('index.html')
     return HttpResponse(template.render())
@@ -26,6 +26,9 @@ def register(request):
     template = loader.get_template('register.html')
     return HttpResponse(template.render())
 
+# Authenticated views
+#####################
+@login_required
 def advisorCalendar(request):
     #List of date and time bookings for advisors
     #Post button to redirect to Posting URL
@@ -37,6 +40,7 @@ def advisorCalendar(request):
     return HttpResponse(template.render())
     #return HttpResponse("This is the advisor's calendar")
 
+@login_required
 def studentCalendar(request):
 # Search button to redirect to Student search URL
 # List of date and time bookings for students
@@ -47,12 +51,14 @@ def studentCalendar(request):
     return HttpResponse(template.render())
     #return HttpResponse("This is the student's calendar")
 
+@login_required
 def studentSearch(request):
     #A search bar with side filters (example advisor name, department, location, Date/Time)
     #Return button to go redirect to Student Calendar URL
 
     return HttpResponse("This is the student search page. Stretch goal?")
 
+@login_required
 def studentBooking(request):
     # Time/Date/Location/Department of advisor posting
     # Confirm button to book
@@ -62,7 +68,8 @@ def studentBooking(request):
     template = loader.get_template('studentBooking.html')
     return HttpResponse(template.render())
     #return HttpResponse("This is the student booking ")
-
+    
+@login_required
 def advisorPosting(request):
     # Time/Date/Location/Department
     # Confirm button to post
