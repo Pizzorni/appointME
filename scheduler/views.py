@@ -18,7 +18,11 @@ def login(request):
     return HttpResponse(template.render())
     #return HttpResponse("You need to login.")
 
-
+def register(request):
+    #username, password, confirm password
+    #submit button
+    template = loader.get_template('register.html')
+    return HttpResponse(template.render())
 
 def advisorCalendar(request):
     #List of date and time bookings for advisors
