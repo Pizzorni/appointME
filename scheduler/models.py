@@ -23,7 +23,7 @@ class Student(models.Model):
 
     majorOne = models.CharField(max_length = 4, choices = MAJOR_CHOICES, default = ENGLISH)
     majorTwo = models.CharField(max_length = 4, choices = MAJOR_CHOICES, default = ECONOMICS)
-    minor = models.CharField(max_length = 4, choices = MAJOR_CHOICES, default = null)
+    minor = models.CharField(max_length = 4, choices = MAJOR_CHOICES)
 
     FRESHMAN = 'FR'
     SOPHOMORE = 'SO'
