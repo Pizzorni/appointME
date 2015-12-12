@@ -68,7 +68,7 @@ def studentBooking(request):
     template = loader.get_template('studentBooking.html')
     return HttpResponse(template.render())
     #return HttpResponse("This is the student booking ")
-    
+    l
 @login_required
 def advisorPosting(request):
     # Time/Date/Location/Department
