@@ -6,4 +6,4 @@ lib/
 *swp
 /scheduler/migrations/
 .idea
-
+appointME/*.pyc
