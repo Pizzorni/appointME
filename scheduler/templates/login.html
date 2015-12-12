@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block main %}
+This is the appointME login page
+<form name="login" action="" method="get" accept-charset="utf-8">
+    <label for="usermail">Email</label>
+    <input type="email" name="usermail" placeholder="yourname@email.com" required><br>
+    <label for="password">Password</label>
+    <input type="password" name="password" placeholder="password" required><br>
+    <input type="submit" value="Login">
+</form>
+{% endblock %}
