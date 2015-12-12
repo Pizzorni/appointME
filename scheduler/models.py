@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    gpa = models.DecimalField(max_digits = 3, decimal_places = 2)
+    gpa = models.DecimalField(max_digits = 3, decimal_places = 2, default = 2.0)
     majorOne = models.CharField(max_length = 8, default = "None")
     majorTwo = models.CharField(max_length = 8, default = "None")
     minor = models.CharField(max_length = 8, default = "None")
@@ -53,8 +53,12 @@ class Student(models.Model):
     
 class Advisor(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    officeLocation =  models.CharField(max_length = 20)
-    specialty = models.CharField(max_length = 8, default = "None")
+    officeLocation =  models.CharField(max_length = 50, default = "251 mercer street")
+    specialty = models.CharField(max_length = 20, default = "None")
+
+#class TimeSloth(models.Model):
+    
+
 
 #class Posting(models.Model):
 
