@@ -56,11 +56,14 @@ class Advisor(models.Model):
     officeLocation =  models.CharField(max_length = 50, default = "251 mercer street")
     specialty = models.CharField(max_length = 20, default = "None")
 
-#class TimeSloth(models.Model):
-    
+
+class Appointment(models.Model):
+    student = models.ForeignKey(Student)
+    advisor = models.ForeignKey(Advisor)
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField()
 
 
-#class Posting(models.Model):
 
 
 
