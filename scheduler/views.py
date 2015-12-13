@@ -1,28 +1,68 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import Context, loader
+from django.contrib.auth import logout, login, authenticate
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.utils import timezone
+from .models import MyUserCreationForm
+
+#Login - 
+from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.http import HttpResponseRedirect
+from django.shortcuts import render_to_response
+from django.contrib import auth
+from django.core.context_processors import csrf
+from forms import RegistrationForm
 
 # Create your views here.
 
 def index(request):
     template = loader.get_template('index.html')
     return HttpResponse(template.render())
-   #return HttpResponse("Hello, World. You win.")
-
+	#return HttpResponseRedirect('index.html')
+	#return HttpResponseRedirect('index.html')
+	
 def login(request):
-
-    #Username and Password text flied
-    #Sign in button (Redirects to Student/Advisor calendar url)
-    #$Register button (redirects to Register page url)
-    template = loader.get_template('login.html')
-    return HttpResponse(template.render())
-    #return HttpResponse("You need to login.")
-
+	c = {}
+	c.update(csrf(request))
+	return render_to_response('login.html', c)
+	
+def auth_view(request):
+	username = request.POST.get('username', '')
+	password = request.POST.get('password', '')
+	user = auth.authenticate(username=username, password=password)
+	
+	if user is not None:
+		auth.login(request, user)
+		return HttpResponseRedirect('loggedIn')
+	else:
+		return HttpResponseRedirect('invalid')
+		
+def loggedIn(request):
+	return render_to_response('loggedIn.html', {'full_name': request.user.email})
+	
+def invalid(request):
+	return render_to_response('invalid.html')
+	
+def logout(request):
+	auth.logout(request)
+	return render_to_response('index.html')
+	
 def register(request):
-    #username, password, confirm password
-    #submit button
-    template = loader.get_template('register.html')
-    return HttpResponse(template.render())
+	if request.method == 'POST':
+		form = RegistrationForm(request.POST)
+		if form.is_valid():
+			new_user = form.save()
+			return render_to_response('registered.html')
+	else:
+		form = RegistrationForm()
+	return render(request, 'register.html', { 'form':form,})
+
+def registered(request):
+	return HttpResponseRedirect('registered.html')
 
 def advisorCalendar(request):
     #List of date and time bookings for advisors

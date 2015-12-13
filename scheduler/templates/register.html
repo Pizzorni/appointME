@@ -1,15 +1,14 @@
 {% extends 'base.html' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Register below...{% endblock %}
 
 {% block main %}
-This is the appointME register page. Please choose a strong password.
-<form name="login" action="" method="get" accept-charset="utf-8">
-    <label for="username">Username</label>
-    <input type="text" name="username" placeholder="username" required><br>
-    <label for="password">Password</label>
-    <input type="password" name="password" placeholder="password" required><br>
-    <label for="password">Password</label>
-    <input type="submit" method="get" name="Register">
-</form>
+
+	This is the appointME register page. Please choose a strong password. 	<br></br>
+	<form action="register" method="post"> {% csrf_token %}
+		{{form.as_p}}
+		<input type="submit" value="Register" />
+		<a href="{% url 'index'%}">Cancel</a>
+	</form>
+
 {% endblock %}

@@ -4,11 +4,19 @@
 
 {% block main %}
 This is the appointME login page
-<form name="login" action="" method="get" accept-charset="utf-8">
-    <label for="username">Username</label>
-    <input type="text" name="username" placeholder="username" required><br>
-    <label for="password">Password</label>
-    <input type="password" name="password" placeholder="password" required><br>
-    <input type="submit" name="Log in">
-</form>
+
+	{% if form.errors %}
+		<p class="error">Incorrect username and password</p>
+	{% endif %}
+	
+	<form action="auth" method="post"> {% csrf_token %}
+		<label for="username">Username: </label>
+		<input type="text" name="username" value="" id="username">
+		<label for="password">Password: </label>
+		<input type="password" name="password" value="" id="password">
+		
+		<input type="submit" value="login"/>
+		<a href="{% url 'index'%}">Cancel</a>
+	</form>
+
 {% endblock %}
