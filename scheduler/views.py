@@ -20,10 +20,14 @@ from forms import RegistrationForm
 # Create your views here.
 
 def index(request):
-    template = loader.get_template('index.html')
-    return HttpResponse(template.render())
-	#return HttpResponseRedirect('index.html')
-	#return HttpResponseRedirect('index.html')
+    #template = loader.get_template('index.html')
+    #return HttpResponse(template.render())
+	#return render(request,'index.html')
+	if request.user.is_authenticated():
+		return render(request, 'loggedIn.html')
+	else:
+		return render(request,'login.html')
+
 	
 def login(request):
 	c = {}
@@ -37,6 +41,7 @@ def auth_view(request):
 	
 	if user is not None:
 		auth.login(request, user)
+		request.session['member_id'] = username
 		return HttpResponseRedirect('loggedIn')
 	else:
 		return HttpResponseRedirect('invalid')
@@ -49,7 +54,7 @@ def invalid(request):
 	
 def logout(request):
 	auth.logout(request)
-	return render_to_response('index.html')
+	return render_to_response('login.html')
 	
 def register(request):
 	if request.method == 'POST':

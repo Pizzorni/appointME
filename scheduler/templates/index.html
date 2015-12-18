@@ -4,12 +4,5 @@
 
 {% block main %}
     This is the appointME index page
-    
-    {% if user.is_authenticated %}
-		{{ user.username }}
-		<a href="lougout.html">calendar</a>
-	{% else %}
-		<a href="register.html">Register</a>
-		<a href="login.html">Log in</a>
-	{% endif %}
+	
 {% endblock %}
