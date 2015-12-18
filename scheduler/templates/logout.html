@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Logout{% endblock %}
+
+{% block main %}
+This is the appointME logout page
+
+	{% if form.errors %}
+		<p class="error">Incorrect username and password</p>
+	{% endif %}
+	
+	<form action="auth" method="post"> {% csrf_token %}
+		Logged OUT!
+		<p>Click <a href="login"> here</a> to log in.</p>
+	</form>
+
+{% endblock %}

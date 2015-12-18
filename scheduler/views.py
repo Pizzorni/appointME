@@ -54,7 +54,7 @@ def invalid(request):
 	
 def logout(request):
 	auth.logout(request)
-	return render_to_response('login.html')
+	return render_to_response('logout.html')
 	
 def register(request):
 	if request.method == 'POST':
