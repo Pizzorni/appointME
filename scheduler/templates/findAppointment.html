@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Find Appointment{% endblock %}
+
+{% block main %}
+This is the appointME find Appointment page
+
+	{% if form.errors %}
+		<p class="error">Incorrect parameters entered</p>
+	{% endif %}
+	
+	<form action="findAppointment" method="post"> {% csrf_token %}
+		{{findAppointmentForm.as_list}}
+		<input type="submit" value="Create" />
+		<a href="{% url 'loggedIn'%}">Cancel</a>
+	</form>
+
+{% endblock %}

@@ -7,7 +7,6 @@ from django.contrib.auth.forms import UserCreationForm
 
 # Create your models here.
 
-
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     gpa = models.DecimalField(max_digits = 3, decimal_places = 2, default = 2.0)

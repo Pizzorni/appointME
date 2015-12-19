@@ -25,7 +25,7 @@ def index(request):
     #return HttpResponse(template.render())
 	#return render(request,'index.html')
 	if request.user.is_authenticated():
-		return render(request, 'loggedIn.html')
+		return HttpResponseRedirect('loggedIn.html')
 	else:
 		return render(request,'login.html')
 
@@ -81,23 +81,16 @@ def register(request):
 
 def registered(request):
 	return HttpResponseRedirect('registered.html')
-	
-def createdAppointment(request):
-	return HttpResponseRedirect('createdAppointment.html')
-	
-def createMeet(request):
+
+def findAppointment(request):
 	if request.method == 'POST':
 		form = AppointmentForm(request.POST, prefix='new_appointment')
 		if form.is_valid():
-			new_appointment = form.save(commit=False)
-			student = Student.objects.get(user=request.user)
-			new_appointment.student = student
-			new_appointment.save()
-			return render_to_response('createdAppointment.html')
+			appointment.day = form['day']
+			return render_to_response('loggedIn')
 	else:
 		form = AppointmentForm(prefix='new_appointment')
-	return render(request, 'createMeet.html', { 'appointmentForm':form})
-
+	return render(request, 'findAppointment.html', {'findAppointmentForm':form})
 
 def advisorCalendar(request):
     #List of date and time bookings for advisors

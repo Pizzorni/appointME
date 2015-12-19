@@ -4,6 +4,15 @@ from models import Student, Appointment
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
+
+Days = ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday')
+
+class AppointmentForm(forms.Form):
+	days = forms.ChoiceField(choices=Days)
+	class Meta:
+		fields= ('choice',)
+		
+
 class RegistrationForm(UserCreationForm):
 	email = forms.EmailField(required=True)
 	gpa = forms.DecimalField(max_digits = 3, decimal_places = 2, max_value = 4, min_value = 0)
@@ -53,8 +62,4 @@ class RegisterForm2(forms.ModelForm):
 		model = Student
 		fields = ('gpa', 'majorOne', 'majorTwo', 'minor', 'year_in_school')
 
-class AppointmentForm(forms.ModelForm):
-	class Meta:
-		model = Appointment
-		fields = ('start_time', 'end_time', 'description')
 		
