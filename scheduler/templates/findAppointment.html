@@ -17,6 +17,19 @@ This is the appointME find Appointment page I want you to see this change.
 
 
 	<html> 
+	<head>
+  <meta charset="utf-8">
+  <title>jQuery UI Datepicker - Default functionality</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script>
+  $(function() {
+    $( "#datepicker" ).datepicker();
+  	});
+  	</script>
+	</head>
   
     <body> 
         <p>Please select a day and a time you are looking to schedule an appointment during. Each appointment is 30 mins long</p> 
@@ -29,6 +42,9 @@ This is the appointME find Appointment page I want you to see this change.
                 <option value="4">Thursday</option> 
                 <option value="5">Friday</option> 
             </select> 
+            
+            <p>Date: <input type="text" id="datepicker"></p>
+
             <select name="models" id="models"> 
                 <option>9:00 am</option> 
                 <option>9:30 am</option> 
