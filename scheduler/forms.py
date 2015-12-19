@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from models import Student, Appointment
+from models import Student, Appointment, Advisor
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
@@ -62,4 +62,8 @@ class RegisterForm2(forms.ModelForm):
 		model = Student
 		fields = ('gpa', 'majorOne', 'majorTwo', 'minor', 'year_in_school')
 
+class RegisterForm3(forms.ModelForm):
+	class Meta:
+		model = Advisor
+		fields = ('officeLocation', 'specialty')
 		

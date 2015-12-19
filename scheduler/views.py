@@ -15,8 +15,8 @@ from django.shortcuts import render_to_response
 from django.contrib import auth
 from django.core.context_processors import csrf
 from forms import RegistrationForm
-from forms import RegisterForm1, RegisterForm2, AppointmentForm
-from models import Student
+from forms import RegisterForm1, RegisterForm2, RegisterForm3, AppointmentForm
+from models import Student, Advisor
 
 # Create your views here.
 
@@ -25,7 +25,10 @@ def index(request):
     #return HttpResponse(template.render())
 	#return render(request,'index.html')
 	if request.user.is_authenticated():
-		return HttpResponseRedirect('loggedIn.html')
+		if Student.objects.filter(user=request.user).exists():
+			return HttpResponseRedirect('loggedIn')
+		else:
+			return HttpResponseRedirect('loggedInAdvisor')
 	else:
 		return render(request,'login.html')
 
@@ -49,11 +52,31 @@ def auth_view(request):
 		
 def loggedIn(request):
 	if request.user.is_authenticated():
-		student = Student.objects.get(user=request.user)
-		#Add fields
-		return render_to_response('loggedIn.html', {'full_name':request.user.username,'email': request.user.email, 'gpa':student.gpa, 'majorOne':student.majorOne, 'majorTwo':student.majorTwo, 'minor':student.minor, 'year_in_school':student.year_in_school,})
+		if Student.objects.filter(user=request.user).exists():
+			student = Student.objects.get(user=request.user)
+			return render_to_response('loggedIn.html', {'full_name':request.user.username,'email': request.user.email, 'gpa':student.gpa, 'majorOne':student.majorOne, 'majorTwo':student.majorTwo, 'minor':student.minor, 'year_in_school':student.year_in_school,})
+		else:
+			advisor = Advisor.objects.get(user=request.user)
+			context = {
+				'full_name': request.user.username,
+				'email': request.user.email,
+				'location': advisor.officeLocation,
+				'spec': advisor.specialty,
+			}
+			return render_to_response('loggedInAdvisor.html', context)
 	else:
 		return render_to_response('login.html')
+		
+def loggedInAdvisor(request):
+	advisor = Advisor.objects.get(user=request.user)
+	context = {
+		'full_name': request.user.username,
+		'email': request.user.email,
+		'location': advisor.officeLocation,
+		'spec': advisor.specialty,
+	}
+	return render_to_response('loggedInAdvisor.html', context)
+		
 def invalid(request):
 	return render_to_response('invalid.html')
 	
@@ -78,6 +101,22 @@ def register(request):
 		form = RegisterForm1(prefix='new_user')
 		form2 = RegisterForm2(prefix='userprofile')
 	return render(request, 'register.html', { 'userform':form, 'userprofileform':form2})
+
+def regAdvisor(request):
+	if request.method == 'POST':
+		form = RegisterForm1(request.POST, prefix='new_user')
+		form2 = RegisterForm3(request.POST, prefix='userprofile')
+		if form.is_valid() * form2.is_valid():
+			new_user = form.save()
+			userprofile = form2.save(commit=False)
+			userprofile.user = new_user
+			userprofile.save()
+			return render_to_response('registered.html')
+	else:
+		form = RegisterForm1(prefix='new_user')
+		form2 = RegisterForm3(prefix='userprofile')
+	return render(request, 'regAdvisor.html', {'userform': form, 'userprofileform': form2})
+
 
 def registered(request):
 	return HttpResponseRedirect('registered.html')

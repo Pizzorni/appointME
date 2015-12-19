@@ -15,21 +15,14 @@ urlpatterns = [
    url(r'^studentBooking', views.studentBooking, name='studentBooking'),
    url(r'^advisorPosting', views.advisorPosting, name='advisorPosting'),
    
-   #For logging in and authentication
-   #url(r'^login', views.login, name='login'),
-   #url(r'^auth', views.auth_view, name='auth_view'),
-   #url(r'^logout', views.logout, name='logout'),
-   #url(r'^loggedIn', views.loggedIn, name='loggedIn'),
-   #url(r'^invalid', views.invalid, name='invalid'),
-   #url(r'^register', views.register, name='register'),
-   #url(r'^register_success', views.register_success, name='register_success'),
-   
    url(r'^register', views.register, name='register'),
+   url(r'^regAdvisor', views.regAdvisor, name='regAdvisor'),
    url(r'^register_success', views.registered, name='registered'),
    url(r'^login', views.login, name='login'),
    url(r'^auth', views.auth_view, name='auth_view'),
    url(r'^logout', views.logout, name='logout'),
    url(r'^loggedIn', views.loggedIn, name='loggedIn'),
+   url(r'^loggedInAdvisor', views.loggedInAdvisor, name='loggedInAdvisor'),
    url(r'^invalid', views.invalid, name='invalid'),
    url(r'^findAppointment', views.findAppointment, name='findAppointment'),
 
