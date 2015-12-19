@@ -4,9 +4,9 @@ from django.views.generic.edit import CreateView
 from django.contrib.auth.forms import UserCreationForm
 
 urlpatterns = [
-   url(r'^index', views.index, name='index'),
-   url(r'^login', views.login, name='login'),
-   url(r'^register', views.register, name='register'),
+   url(r'^$', views.index, name='index'),
+   #url(r'^login', views.login, name='login'),
+   #url(r'^register', views.register, name='register'),
    #url(r'^advisorCalendar', views.advisorCalendar, name='advisorCalendar'),
    #url(r'^studentCalendar', views.studentCalendar, name='studentCalendar'),
    url(r'^calendar', views.advisorCalendar, name='advisorCalendar'),
@@ -14,4 +14,23 @@ urlpatterns = [
    url(r'^studentSearch', views.studentSearch, name='studentSearch'),
    url(r'^studentBooking', views.studentBooking, name='studentBooking'),
    url(r'^advisorPosting', views.advisorPosting, name='advisorPosting'),
+   
+   #For logging in and authentication
+   #url(r'^login', views.login, name='login'),
+   #url(r'^auth', views.auth_view, name='auth_view'),
+   #url(r'^logout', views.logout, name='logout'),
+   #url(r'^loggedIn', views.loggedIn, name='loggedIn'),
+   #url(r'^invalid', views.invalid, name='invalid'),
+   #url(r'^register', views.register, name='register'),
+   #url(r'^register_success', views.register_success, name='register_success'),
+   
+   url(r'^register', views.register, name='register'),
+   url(r'^register_success', views.registered, name='registered'),
+   url(r'^login', views.login, name='login'),
+   url(r'^auth', views.auth_view, name='auth_view'),
+   url(r'^logout', views.logout, name='logout'),
+   url(r'^loggedIn', views.loggedIn, name='loggedIn'),
+   url(r'^invalid', views.invalid, name='invalid'),
+   
+   
 ]
