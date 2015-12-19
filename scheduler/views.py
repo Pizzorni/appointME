@@ -6,7 +6,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils import timezone
-from .models import MyUserCreationForm
 
 #Login - 
 from django import forms
@@ -16,6 +15,8 @@ from django.shortcuts import render_to_response
 from django.contrib import auth
 from django.core.context_processors import csrf
 from forms import RegistrationForm
+from forms import RegisterForm1, RegisterForm2
+from models import Student
 
 # Create your views here.
 
@@ -47,24 +48,35 @@ def auth_view(request):
 		return HttpResponseRedirect('invalid')
 		
 def loggedIn(request):
-	return render_to_response('loggedIn.html', {'full_name': request.user.email})
-	
+	if request.user.is_authenticated():
+		student = Student.objects.get(user=request.user)
+		return render_to_response('loggedIn.html', {'full_name': request.user.email, 'gpa':student.gpa, 'majorOne':student.majorOne, 'majorTwo':student.majorTwo, 'minor':student.minor, 'year_in_school':student.year_in_school,})
+	else:
+		return render_to_response('login.html')
 def invalid(request):
 	return render_to_response('invalid.html')
 	
 def logout(request):
-	auth.logout(request)
-	return render_to_response('logout.html')
+	if request.user.is_authenticated():
+		auth.logout(request)
+		return render_to_response('logout.html')
+	else:
+		return render_to_response('login.html')
 	
 def register(request):
 	if request.method == 'POST':
-		form = RegistrationForm(request.POST)
+		form = RegisterForm1(request.POST, prefix='new_user')
+		form2 = RegisterForm2(request.POST, prefix='userprofile')
 		if form.is_valid():
 			new_user = form.save()
+			userprofile = form2.save(commit=False)
+			userprofile.user = new_user
+			userprofile.save()
 			return render_to_response('registered.html')
 	else:
-		form = RegistrationForm()
-	return render(request, 'register.html', { 'form':form,})
+		form = RegisterForm1(prefix='new_user')
+		form2 = RegisterForm2(prefix='userprofile')
+	return render(request, 'register.html', { 'userform':form, 'userprofileform':form2})
 
 def registered(request):
 	return HttpResponseRedirect('registered.html')

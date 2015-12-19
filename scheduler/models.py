@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 from django.db import models
+from django.forms import ModelForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
@@ -63,14 +64,7 @@ class Appointment(models.Model):
     advisor = models.ForeignKey(Advisor)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
-
-
-class MyUserCreationForm(UserCreationForm):
-  class Meta(UserCreationForm.Meta):
-    help_texts = {
-      'username' : '',
-    }
-
+    
 
 
 

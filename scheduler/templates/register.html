@@ -6,7 +6,9 @@
 
 	This is the appointME register page. Please choose a strong password. 	<br></br>
 	<form action="register" method="post"> {% csrf_token %}
-		{{form.as_p}}
+		{{userform.as_p}}
+		<br>
+		{{userprofileform.as_p}}
 		<input type="submit" value="Register" />
 		<a href="{% url 'index'%}">Cancel</a>
 	</form>

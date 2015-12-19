@@ -1,4 +1,6 @@
 from django import forms
+from django.forms import ModelForm
+from models import Student
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
@@ -29,3 +31,24 @@ class RegistrationForm(UserCreationForm):
 			user.save()
 			
 		return user
+
+class RegisterForm1(UserCreationForm):
+	email = forms.EmailField(required=True)
+	
+	class Meta:
+		model = User
+		fields = ('username','email', 'password1', 'password2')
+	
+	def save(self, commit=True):
+		user = super(RegisterForm1, self).save(commit=False)
+		user.email = self.cleaned_data['email']
+		
+		if commit:
+			user.save()
+			
+		return user
+
+class RegisterForm2(forms.ModelForm):
+	class Meta:
+		model = Student
+		fields = ('gpa', 'majorOne', 'majorTwo', 'minor', 'year_in_school')
