@@ -31,6 +31,7 @@ urlpatterns = [
    url(r'^logout', views.logout, name='logout'),
    url(r'^loggedIn', views.loggedIn, name='loggedIn'),
    url(r'^invalid', views.invalid, name='invalid'),
-   
+   url(r'^createMeet', views.createMeet, name='createMeet'),
+   url(r'^createdAppointment', views.createdAppointment, name='createdAppointment'),
    
 ]

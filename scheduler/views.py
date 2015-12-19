@@ -15,7 +15,7 @@ from django.shortcuts import render_to_response
 from django.contrib import auth
 from django.core.context_processors import csrf
 from forms import RegistrationForm
-from forms import RegisterForm1, RegisterForm2
+from forms import RegisterForm1, RegisterForm2, AppointmentForm
 from models import Student
 
 # Create your views here.
@@ -50,7 +50,8 @@ def auth_view(request):
 def loggedIn(request):
 	if request.user.is_authenticated():
 		student = Student.objects.get(user=request.user)
-		return render_to_response('loggedIn.html', {'full_name': request.user.email, 'gpa':student.gpa, 'majorOne':student.majorOne, 'majorTwo':student.majorTwo, 'minor':student.minor, 'year_in_school':student.year_in_school,})
+		#Add fields
+		return render_to_response('loggedIn.html', {'full_name':request.user.username,'email': request.user.email, 'gpa':student.gpa, 'majorOne':student.majorOne, 'majorTwo':student.majorTwo, 'minor':student.minor, 'year_in_school':student.year_in_school,})
 	else:
 		return render_to_response('login.html')
 def invalid(request):
@@ -80,6 +81,23 @@ def register(request):
 
 def registered(request):
 	return HttpResponseRedirect('registered.html')
+	
+def createdAppointment(request):
+	return HttpResponseRedirect('createdAppointment.html')
+	
+def createMeet(request):
+	if request.method == 'POST':
+		form = AppointmentForm(request.POST, prefix='new_appointment')
+		if form.is_valid():
+			new_appointment = form.save(commit=False)
+			student = Student.objects.get(user=request.user)
+			new_appointment.student = student
+			new_appointment.save()
+			return render_to_response('createdAppointment.html')
+	else:
+		form = AppointmentForm(prefix='new_appointment')
+	return render(request, 'createMeet.html', { 'appointmentForm':form})
+
 
 def advisorCalendar(request):
     #List of date and time bookings for advisors
