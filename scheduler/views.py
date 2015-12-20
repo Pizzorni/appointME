@@ -106,7 +106,7 @@ def findAppointment(request):
 	return render(request, 'findAppointment.html', {'findAppointmentForm':form})
 
 def canNotBook(request):
-	return HttpResponseRedirect('canNotBook.html') 
+	return render(request, 'canNotBook.html')
 
 
 def advisorCalendar(request):
