@@ -4,21 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %} {% endblock %}</title>
-    <link rel="shortcut icon" href="{%  static 'scheduler/favicon.ico' %}">
+    <link rel="shortcut icon" href="{%  static 'favicon.ico' %}">
 </head>
 <header>
     <h1>AppointME</h1>
-</header>
-<body>
-{% block main %}
-	{% if user.is_authenticated %}
-		{{ user.username }}
+    {% if user.is_authenticated %}
+		Hello, {{ user.username }}
 		<a href="logout.html">Logout</a>
 	{% else %}
 		<a href="register.html">Register</a>
 		<a href="login.html">Log in</a>
 	{% endif %}
-
+</header>
+<body>
+{% block main %}
 {% endblock %}
 </body>
 </html>
