@@ -113,7 +113,7 @@ def findAppointment(request):
   #   			new_app.date=time
   #   			new_app.save()
 
-		# return render_to_response('loggedIn')
+		return render_to_response('loggedIn')
 	else:
 		form = AppointmentForm(prefix='new_appointment')
 	return render(request, 'findAppointment.html', {'time':request.time})
