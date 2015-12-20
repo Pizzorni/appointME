@@ -3,7 +3,8 @@
 {% block title %}Find Appointment{% endblock %}
 
 {% block main %}
-This is the appointME find Appointment page I want you to see this change.
+This is the appointME find Appointment page!
+Check here if you an appointment slot you wish to book is free
 
 	{% if form.errors %}
 		<p class="error">Incorrect parameters entered</p>
@@ -38,7 +39,7 @@ This is the appointME find Appointment page I want you to see this change.
             <p>Date: <input type="text" id="datepicker"></p>
 
             <select name="models" id="models"> 
-                <option>9:00 am</option> 
+                <option value="9:30" >9:00 am</option> 
                 <option>9:30 am</option> 
                 <option>10:00 am</option> 
                 <option>10:30 am</option> 
@@ -58,6 +59,7 @@ This is the appointME find Appointment page I want you to see this change.
 
             </select> 
         </form> 
+        <input type="submit" value="Check If desired slot is free" />
     </body> 
 </html>
 
