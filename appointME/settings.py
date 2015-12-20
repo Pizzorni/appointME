@@ -85,15 +85,34 @@ WSGI_APPLICATION = 'appointME.wsgi.application'
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
 DATABASES = {
+#    'default': { },
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'appointME',
-        'USER': 'appointMEuser',
+        'USER': 'appserver',
         'PASSWORD': 'password',
-        'HOST': 'localhost',
-        'PORT': ''
-    }
+        'HOST': '127.0.0.1',
+        'PORT': '3306'
+    },
+    'db1': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'appointME',
+        'USER': 'appserver',
+        'PASSWORD': 'password',
+        'HOST': '127.0.0.1',
+        'PORT': '3307'
+    },
+    'db2': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'appointME',
+        'USER': 'appserver',
+        'PASSWORD': 'password',
+        'HOST': '127.0.0.1',
+        'PORT': '3308',
+    },
 }
+
+DATABASE_ROUTERS = ['scheduler.routers.UserRouter']
 
 
 # Password validation
