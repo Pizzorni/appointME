@@ -5,9 +5,10 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
 
+Days = ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday')
+
 class AppointmentForm(forms.Form):
-	date = forms.CharField(max_length=256)
-    time = forms.CharField(max_length=256)
+	#days = forms.ChoiceField(choices=Days)
 	class Meta:
 		fields= ('choice',)
 		
