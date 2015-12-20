@@ -7,7 +7,6 @@ from django.contrib.auth.forms import UserCreationForm
 
 # Create your models here.
 
-
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     gpa = models.DecimalField(max_digits = 3, decimal_places = 2, default = 2.0)
@@ -23,11 +22,11 @@ class Advisor(models.Model):
 
 
 class Appointment(models.Model):
-    student = models.ForeignKey(Student)
-    advisor = models.ForeignKey(Advisor)
+    student = models.ForeignKey(Student, null=True)
+    advisor = models.ForeignKey(Advisor, null=True)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
-
+    description = models.CharField(max_length = 300, default = "Enter description")
 
 
 

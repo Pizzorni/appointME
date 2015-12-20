@@ -1,8 +1,17 @@
 from django import forms
 from django.forms import ModelForm
-from models import Student
+from models import Student, Appointment, Advisor
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+
+
+Days = ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday')
+
+class AppointmentForm(forms.Form):
+	days = forms.ChoiceField(choices=Days)
+	class Meta:
+		fields= ('choice',)
+		
 
 class RegistrationForm(UserCreationForm):
 	email = forms.EmailField(required=True)
@@ -52,3 +61,9 @@ class RegisterForm2(forms.ModelForm):
 	class Meta:
 		model = Student
 		fields = ('gpa', 'majorOne', 'majorTwo', 'minor', 'year_in_school')
+
+class RegisterForm3(forms.ModelForm):
+	class Meta:
+		model = Advisor
+		fields = ('officeLocation', 'specialty')
+		
