@@ -13,7 +13,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.contrib import auth
-from django.core.context_processors import csrf
+from django.template.context_processors import csrf
 from forms import RegistrationForm
 from forms import RegisterForm1, RegisterForm2, RegisterForm3, AppointmentForm
 from models import Student, Advisor
@@ -138,8 +138,9 @@ def advisorCalendar(request):
         #Each booking will have an expand feature to view detailed information regarding booking
         #Appointment Cancel Button
             #Delete Posting
-    template = loader.get_template('calendar.html')
-    return HttpResponse(template.render())
+    #template = loader.get_template('calendar.html')
+    #return HttpResponse(template.render())
+	return render(request, 'calendar.html')
     #return HttpResponse("This is the advisor's calendar")
 
 def studentCalendar(request):
@@ -148,8 +149,9 @@ def studentCalendar(request):
     # Each booking will have an expand feature to view detailed information regarding booking
     # Appointment Cancel Button
         # Repost the posting
-    template = loader.get_template('calendar.html')
-    return HttpResponse(template.render())
+    #template = loader.get_template('calendar.html')
+    #return HttpResponse(template.render())
+	return render(request, 'calendar.html')
     #return HttpResponse("This is the student's calendar")
 
 def studentSearch(request):
