@@ -51,6 +51,7 @@ def loggedIn(request):
 	if request.user.is_authenticated():
 		student = Student.objects.get(user=request.user)
 		#Add fields
+		appointment=Appointment.objects
 		return render_to_response('loggedIn.html', {'full_name':request.user.username,'email': request.user.email, 'gpa':student.gpa, 'majorOne':student.majorOne, 'majorTwo':student.majorTwo, 'minor':student.minor, 'year_in_school':student.year_in_school,})
 	else:
 		return render_to_response('login.html')
