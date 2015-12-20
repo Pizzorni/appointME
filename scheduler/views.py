@@ -88,32 +88,15 @@ def findAppointment(request):
 		form = AppointmentForm(request.POST, prefix='new_appointment')
 		if form.is_valid():
 			appointment.day = form['day']
-			# date = form.cleaned_data['date']
-			# time = form.cleaned_data['value']
+			date = form.cleaned_data.get['date']
+			time = form.cleaned_data.get['value']
 
-			# 	requestedAppIsFree=false;
-			# 	all_appointments = Appointment.objects.all()
-			# 	for appointment in all_appointments:
-			# 		#if date is not already in appointment db
-			# 		 if(date==appointment.date):
-			# 		 	#if time is not already in appointment db
-			# 		 	if(time!=appointment.time): 
-			# 		 		requestedAppIsFree=true;
-			# 		 	else:
-			# 		 		requestedAppIsFree=false;
-
-			# 	if(requestedAppIsFree==true):
-			# 		#then create Appointment object 
-			# 		app = Appointment(request.POST)
-  			#   			new_app = app.save(commit=False)
-			#   			new_app.student = request.user
-  			#   			#for now we only have one advisor on the system
-  			#   			new_app.advisor ="Jane Smith"
-  			#   			new_app.date = date
-  			#   			new_app.date=time
-  			#   			new_app.save()
-
-			return render_to_response('loggedIn')
+			if Appointment.objects.filter(day=day,time=time).exists(): 
+				return true #should actually return something else
+			else: #
+				appointment = Appointment.objects.create(date=date,time=time,student=request.user,advisor="Jane Smith")
+				appointment.save()
+				return HttpResponseRedirect('loggedIn')
 	else:
 		form = AppointmentForm(prefix='new_appointment')
 	return render(request, 'findAppointment.html', {'findAppointmentForm':form})
