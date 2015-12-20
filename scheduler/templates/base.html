@@ -1,4 +1,6 @@
 {% load staticfiles %}
+{% load cache %}
+{% cache 600 head title%}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +10,8 @@
 </head>
 <header>
     <h1>AppointME</h1>
+{% endcache %}
+    {% cache 60 header user.username %}
     {% if user.is_authenticated %}
 		Hello, {{ user.username }}
 		<a href="logout.html">Logout</a>
@@ -15,6 +19,7 @@
 		<a href="register.html">Register</a>
 		<a href="login.html">Log in</a>
 	{% endif %}
+    {% endcache %}
 </header>
 <body>
 {% block main %}
