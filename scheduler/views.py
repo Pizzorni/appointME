@@ -101,7 +101,7 @@ def findAppointment(request):
 				return HttpResponseRedirect('canNotBook') 
 			else: 
 				#good job you've requested an open slot
-				appointment = Appointment.objects.create(timeslot = timeslot,student=request.user,advisor="Jane Smith")
+				appointment = Appointment.objects.create(timeslot = timeslot,student=Student.objects.get(user=request.user),advisor="Jane Smith")
 				appointment.save()
 
 				return HttpResponseRedirect('loggedIn')
