@@ -61,8 +61,8 @@ class Advisor(models.Model):
 class Appointment(models.Model):
     student = models.ForeignKey(Student, null=True)
     advisor = models.ForeignKey(Advisor, null=True)
-    start_time = models.DateTimeField()
-    end_time = models.DateTimeField()
+    date = models.CharField(max_length = 50)
+    time = models.CharField(max_length = 50)
     description = models.CharField(max_length = 300, default = "Enter description")
     
 
