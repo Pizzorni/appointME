@@ -53,7 +53,7 @@ class Student(models.Model):
 
     
 class Advisor(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.CharField(max_length = 50,default = "Jane Smith")
     officeLocation =  models.CharField(max_length = 50, default = "251 mercer street")
     specialty = models.CharField(max_length = 20, default = "None")
 
