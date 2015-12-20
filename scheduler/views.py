@@ -7,6 +7,8 @@ from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils import timezone
 from models import Student, Appointment
+from datetime import datetime
+from time import strptime, mktime
 
 #Login - 
 from django import forms
@@ -85,25 +87,27 @@ def registered(request):
 	return HttpResponseRedirect('registered.html')
 
 def findAppointment(request):
-	if request.method == 'POST':
-		form = AppointmentForm(request.POST, prefix='new_appointment')
+	if request.method == 'GET':
+		form = AppointmentForm(request.GET, prefix='new_appointment')
 		if form.is_valid():
-			appointment.day = form['day']
-			date = form.cleaned_data.get['date']
-			time = form.cleaned_data.get['value']
-
-			if Appointment.objects.filter(day=day,time=time).exists(): 
+			#appointment.day = form['day']
+			date = form.cleaned_data['date']
+			time = form.cleaned_data['time']
+			f_time = strptime(time, "%H:%S")
+			temp = datetime.fromtimestamp(mktime(f_time)).time()
+			timeslot = datetime.combine(date, temp)
+			if Appointment.objects.filter(timeslot = timeslot).exists():
 				#try again because this appointment is already booked
 				return HttpResponseRedirect('canNotBook') 
 			else: 
 				#good job you've requested an open slot
-				appointment = Appointment.objects.create(date=date,time=time,student=request.user,advisor="Jane Smith")
+				appointment = Appointment.objects.create(timeslot = timeslot,student=request.user,advisor="Jane Smith")
 				appointment.save()
 
 				return HttpResponseRedirect('loggedIn')
 	else:
 		form = AppointmentForm(prefix='new_appointment')
-	return render(request, 'findAppointment.html', {'findAppointmentForm':form})
+	return render(request, 'findAppointment.html', {'AppointmentForm':form})
 
 def canNotBook(request):
 	return render(request, 'canNotBook.html')

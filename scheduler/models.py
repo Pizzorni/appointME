@@ -63,6 +63,7 @@ class Appointment(models.Model):
     advisor = models.ForeignKey(Advisor, null=True)
     date = models.DateTimeField()
     time = models.DateTimeField()
+    timeslot = models.DateTimeField()
     description = models.CharField(max_length = 300, default = "Enter description")
     
 
