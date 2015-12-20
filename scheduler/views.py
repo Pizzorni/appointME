@@ -93,14 +93,21 @@ def findAppointment(request):
 			time = form.cleaned_data.get['value']
 
 			if Appointment.objects.filter(day=day,time=time).exists(): 
-				return true #should actually return something else
-			else: #
+				#try again because this appointment is already booked
+				return HttpResponseRedirect('canNotBook.html') 
+			else: 
+				#good job you've requested an open slot
 				appointment = Appointment.objects.create(date=date,time=time,student=request.user,advisor="Jane Smith")
 				appointment.save()
+
 				return HttpResponseRedirect('loggedIn')
 	else:
 		form = AppointmentForm(prefix='new_appointment')
 	return render(request, 'findAppointment.html', {'findAppointmentForm':form})
+
+def canNotBook(request):
+	return HttpResponseRedirect('canNotBook.html') 
+
 
 def advisorCalendar(request):
     #List of date and time bookings for advisors

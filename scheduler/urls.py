@@ -30,6 +30,7 @@ urlpatterns = [
    url(r'^auth', views.auth_view, name='auth_view'),
    url(r'^logout', views.logout, name='logout'),
    url(r'^loggedIn', views.loggedIn, name='loggedIn'),
+   url(r'^canNotBook', views.canNotBook, name='canNotBook'),
    url(r'^invalid', views.invalid, name='invalid'),
    url(r'^findAppointment', views.findAppointment, name='findAppointment'),
 
