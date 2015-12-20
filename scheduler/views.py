@@ -54,7 +54,8 @@ def loggedIn(request):
 	if request.user.is_authenticated():
 		if Student.objects.filter(user=request.user).exists():
 			student = Student.objects.get(user=request.user)
-			return render_to_response('loggedIn.html', {'full_name':request.user.username,'email': request.user.email, 'gpa':student.gpa, 'majorOne':student.majorOne, 'majorTwo':student.majorTwo, 'minor':student.minor, 'year_in_school':student.year_in_school,})
+			#return render_to_response('loggedIn.html', {'full_name':request.user.username,'email': request.user.email, 'gpa':student.gpa, 'majorOne':student.majorOne, 'majorTwo':student.majorTwo, 'minor':student.minor, 'year_in_school':student.year_in_school,})
+			return render(request, 'loggedIn.html', {'full_name':request.user.username,'email': request.user.email, 'gpa':student.gpa, 'majorOne':student.majorOne, 'majorTwo':student.majorTwo, 'minor':student.minor, 'year_in_school':student.year_in_school,})
 		else:
 			advisor = Advisor.objects.get(user=request.user)
 			context = {
@@ -63,7 +64,8 @@ def loggedIn(request):
 				'location': advisor.officeLocation,
 				'spec': advisor.specialty,
 			}
-			return render_to_response('loggedInAdvisor.html', context)
+			#return render_to_response('loggedInAdvisor.html', context)
+			return render(request, 'loggedInAdvisor.html', context)
 	else:
 		return render_to_response('login.html')
 		
