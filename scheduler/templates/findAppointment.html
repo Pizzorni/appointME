@@ -9,12 +9,6 @@ Check here if an appointment slot you wish to book is free
 	{% if form.errors %}
 		<p class="error">Incorrect parameters entered</p>
 	{% endif %}
-	
-	<form action="findAppointment" method="post"> {% csrf_token %}
-		{{findAppointmentForm.as_list}}
-		<input type="submit" value="Create" />
-		<a href="{% url 'loggedIn'%}">Cancel</a>
-	</form>
 
 
 	<html> 

@@ -94,7 +94,7 @@ def findAppointment(request):
 
 			if Appointment.objects.filter(day=day,time=time).exists(): 
 				#try again because this appointment is already booked
-				return HttpResponseRedirect('canNotBook.html') 
+				return HttpResponseRedirect('canNotBook') 
 			else: 
 				#good job you've requested an open slot
 				appointment = Appointment.objects.create(date=date,time=time,student=request.user,advisor="Jane Smith")
