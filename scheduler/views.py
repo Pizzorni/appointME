@@ -136,8 +136,7 @@ def findAppointment(request):
 				advisor=Advisor.objects.create(specialty="Computer Science")
 				appointment = Appointment.objects.create(timeslot = timeslot,student=Student.objects.get(user=request.user),advisor=advisor)
 				appointment.save()
-
-				return HttpResponseRedirect('loggedIn')
+				return HttpResponseRedirect('createdAppointment')
 	else:
 		form = AppointmentForm(prefix='new_appointment')
 	return render(request, 'findAppointment.html', {'AppointmentForm':form})
@@ -145,6 +144,8 @@ def findAppointment(request):
 def canNotBook(request):
 	return render(request, 'canNotBook.html')
 
+def createdAppointment(request):
+	return render(request, 'createdAppointment.html')
 
 def advisorCalendar(request):
     #List of date and time bookings for advisors
