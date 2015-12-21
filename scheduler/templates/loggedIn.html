@@ -13,6 +13,20 @@ This is the appointME loggedIn page
 	<h2> year in school - {{year_in_school}} </h2>
 	
 	
+	<table>
+		<tr>
+			<th>timeslot</th>
+			<th>advisor</th>
+		</tr>
+		{% for appointment in appointment_list %}
+			<tr>
+				<td> {{appointment.timeslot}}</td>
+				<td> {{appointment.advisor.user}} </td>
+			</tr>
+		{% endfor %}
+	</table>
+	
+	
 	
 	<p>Click <a href="logout"> here</a> to log out.</p>
 	<p>Click <a href="findAppointment"> here</a> to find an appointment.</p>
