@@ -11,6 +11,9 @@
 <header>
     <h1>AppointME</h1>
     {% endcache %}
+</header>
+<body>
+{% block main %}
     {% if user.is_authenticated %}
         {% cache 60 header user.username %}
 		Hello, {{ user.username }}
@@ -22,9 +25,6 @@
 		<a href="login.html">Log in</a>
         {% endcache %}
 	{% endif %}
-</header>
-<body>
-{% block main %}
 {% endblock %}
 </body>
 </html>

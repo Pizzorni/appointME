@@ -59,7 +59,20 @@ def loggedIn(request):
 			student = Student.objects.get(user=request.user)
 			#Do something with appointments
 			appointment=Appointment.objects
-			return render_to_response('loggedIn.html', {'full_name':request.user.username,'email': request.user.email, 'gpa':student.gpa, 'majorOne':student.majorOne, 'majorTwo':student.majorTwo, 'minor':student.minor, 'year_in_school':student.year_in_school,})
+			appointment_list = Appointment.objects.filter(student=student)
+			
+			context = {
+				'full_name':request.user.username,
+				'email': request.user.email, 
+				'gpa':student.gpa, 
+				'majorOne':student.majorOne, 
+				'majorTwo':student.majorTwo, 
+				'minor':student.minor, 
+				'year_in_school':student.year_in_school, 
+				'appointment_list':appointment_list,
+			}
+			
+			return render_to_response('loggedIn.html', context)
 		else:
 			advisor = Advisor.objects.get(user=request.user)
 			context = {
