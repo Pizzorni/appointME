@@ -4,7 +4,13 @@ from django.forms import ModelForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
+NUM_LOGICAL_SHARDS = 16
+NUM_PHYSICAL_SHARDS = 2
 
+LOGICAL_TO_PHYSICAL = (
+  'db1', 'db2', 'db1', 'db2', 'db1', 'db2', 'db1', 'db2',
+  'db1', 'db2', 'db1', 'db2', 'db1', 'db2', 'db1', 'db2',
+)
 # Create your models here.
 
 class Student(models.Model):
@@ -28,10 +34,6 @@ class Appointment(models.Model):
     #time = models.DateTimeField()
     timeslot = models.DateTimeField()
     description = models.CharField(max_length = 300, default = "Enter description")
-
-
-
-
 
 
 
