@@ -25,5 +25,6 @@ urlpatterns = [
    url(r'^canNotBook', views.canNotBook, name='canNotBook'),
    url(r'^invalid', views.invalid, name='invalid'),
    url(r'^findAppointment', views.findAppointment, name='findAppointment'),
+   url(r'^createdAppointment', views.createdAppointment, name='createdAppointment'),
 
 ]

@@ -1,19 +1,26 @@
 {% load staticfiles %}
+{% load cache %}
+{% cache 600 head1 %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %} {% endblock %}</title>
+    <title>{% endcache %}{% block title %} {% endblock %}{% cache 600 head2 %}</title>
     <link rel="shortcut icon" href="{%  static 'favicon.ico' %}">
 </head>
 <header>
     <h1>AppointME</h1>
+    {% endcache %}
     {% if user.is_authenticated %}
+        {% cache 60 header user.username %}
 		Hello, {{ user.username }}
 		<a href="logout.html">Logout</a>
+        {% endcache %}
 	{% else %}
+        {% cache 600 header_anonymous %}
 		<a href="register.html">Register</a>
 		<a href="login.html">Log in</a>
+        {% endcache %}
 	{% endif %}
 </header>
 <body>
