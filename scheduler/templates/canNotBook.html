@@ -1,12 +1,11 @@
 {% extends 'base.html' %}
-
+{% load cache %}
+{% cache 600 canNotBook %}
 {% block title %}You have booked an Appointment{% endblock %}
 
 {% block main %}
 The appointment you requested was not available ...please try again.
 <br>
 Click <a href='findAppointment.html'>here</a> to go back.
-
-	
-
 {% endblock %}
+{% endcache %}
