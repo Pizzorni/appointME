@@ -8,16 +8,18 @@
 </head>
 <header>
     <h1>AppointME</h1>
-    {% if user.is_authenticated %}
+</header>
+<body>
+{% block main %}
+
+	{% if user.is_authenticated %}
 		Hello, {{ user.username }}
 		<a href="logout.html">Logout</a>
 	{% else %}
 		<a href="register.html">Register</a>
 		<a href="login.html">Log in</a>
 	{% endif %}
-</header>
-<body>
-{% block main %}
+
 {% endblock %}
 </body>
 </html>
