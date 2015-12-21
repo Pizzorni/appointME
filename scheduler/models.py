@@ -40,7 +40,3 @@ class Appointment(models.Model):
 
 
 
-
-
-
-
