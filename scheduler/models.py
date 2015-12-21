@@ -16,7 +16,7 @@ class Student(models.Model):
     year_in_school = models.CharField(max_length=20, default = "Freshman")
     
 class Advisor(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.CharField(max_length = 50,default = "Jane Smith")
     officeLocation =  models.CharField(max_length = 50, default = "251 mercer street")
     specialty = models.CharField(max_length = 20, default = "None")
 
@@ -24,8 +24,9 @@ class Advisor(models.Model):
 class Appointment(models.Model):
     student = models.ForeignKey(Student, null=True)
     advisor = models.ForeignKey(Advisor, null=True)
-    start_time = models.DateTimeField()
-    end_time = models.DateTimeField()
+    #date = models.DateTimeField()
+    #time = models.DateTimeField()
+    timeslot = models.DateTimeField()
     description = models.CharField(max_length = 300, default = "Enter description")
 
 
