@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Register below...{% endblock %}
+
+{% block main %}
+
+	This is the appointME register Advisor page. Please choose a strong password. 	<br></br>
+	<form action="regAdvisor" method="post"> {% csrf_token %}
+		{{userform.as_p}}
+		{{userprofileform.as_p}}
+		<input type="submit" value="Register" />
+		<a href="{% url 'index'%}">Cancel</a>
+	</form>
+
+{% endblock %}
