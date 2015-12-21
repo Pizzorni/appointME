@@ -6,6 +6,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils import timezone
+from models import Student, Appointment, Advisor
+from datetime import datetime
+from time import strptime, mktime
 
 #Login - 
 from django import forms
@@ -52,20 +55,10 @@ def auth_view(request):
 		
 def loggedIn(request):
 	if request.user.is_authenticated():
-		if Student.objects.filter(user=request.user).exists():
-			student = Student.objects.get(user=request.user)
-			#return render_to_response('loggedIn.html', {'full_name':request.user.username,'email': request.user.email, 'gpa':student.gpa, 'majorOne':student.majorOne, 'majorTwo':student.majorTwo, 'minor':student.minor, 'year_in_school':student.year_in_school,})
-			return render(request, 'loggedIn.html', {'full_name':request.user.username,'email': request.user.email, 'gpa':student.gpa, 'majorOne':student.majorOne, 'majorTwo':student.majorTwo, 'minor':student.minor, 'year_in_school':student.year_in_school,})
-		else:
-			advisor = Advisor.objects.get(user=request.user)
-			context = {
-				'full_name': request.user.username,
-				'email': request.user.email,
-				'location': advisor.officeLocation,
-				'spec': advisor.specialty,
-			}
-			#return render_to_response('loggedInAdvisor.html', context)
-			return render(request, 'loggedInAdvisor.html', context)
+		student = Student.objects.get(user=request.user)
+		#Add fields
+		appointment=Appointment.objects
+		return render(request, 'loggedIn.html', {'full_name':request.user.username,'email': request.user.email, 'gpa':student.gpa, 'majorOne':student.majorOne, 'majorTwo':student.majorTwo, 'minor':student.minor, 'year_in_school':student.year_in_school,})
 	else:
 		return render_to_response('login.html')
 		
@@ -124,14 +117,34 @@ def registered(request):
 	return HttpResponseRedirect('registered.html')
 
 def findAppointment(request):
-	if request.method == 'POST':
-		form = AppointmentForm(request.POST, prefix='new_appointment')
+	if request.method == 'GET':
+		form = AppointmentForm(request.GET, prefix='new_appointment')
 		if form.is_valid():
-			appointment.day = form['day']
-			return render_to_response('loggedIn')
+			#appointment.day = form['day']
+			date = form.cleaned_data['date']
+			time = form.cleaned_data['time']
+			f_time = strptime(time, "%H:%S")
+			temp = datetime.fromtimestamp(mktime(f_time)).time()
+			timeslot = datetime.combine(date, temp)
+			if Appointment.objects.filter(timeslot = timeslot).exists():
+				#try again because this appointment is already booked
+				return HttpResponseRedirect('canNotBook') 
+			else: 
+				#good job you've requested an open slot
+
+				#at the moment we have one advisor and it is the default one
+				advisor=Advisor.objects.create(specialty="Computer Science")
+				appointment = Appointment.objects.create(timeslot = timeslot,student=Student.objects.get(user=request.user),advisor=advisor)
+				appointment.save()
+
+				return HttpResponseRedirect('loggedIn')
 	else:
 		form = AppointmentForm(prefix='new_appointment')
-	return render(request, 'findAppointment.html', {'findAppointmentForm':form})
+	return render(request, 'findAppointment.html', {'AppointmentForm':form})
+
+def canNotBook(request):
+	return render(request, 'canNotBook.html')
+
 
 def advisorCalendar(request):
     #List of date and time bookings for advisors
