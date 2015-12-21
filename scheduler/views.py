@@ -151,7 +151,7 @@ def findAppointment(request):
 			timeslot = datetime.combine(date, temp)
 			if Appointment.objects.filter(timeslot = timeslot).exists():
 				#try again because this appointment is already booked
-				return HttpResponseRedirect('canNotBook') 
+				return render(request, 'canNotBook.html', {'date': date, 'time': time})
 			else: 
 				#good job you've requested an open slot
 
@@ -159,8 +159,7 @@ def findAppointment(request):
 				advisor=Advisor.objects.create(specialty="Computer Science")
 				appointment = Appointment.objects.create(timeslot = timeslot,student=Student.objects.get(user=request.user),advisor=advisor)
 				appointment.save()
-
-				return HttpResponseRedirect('loggedIn')
+				return render(request, 'createdAppointment.html', {'date': date, 'time': time})
 	else:
 		form = AppointmentForm(prefix='new_appointment')
 	return render(request, 'findAppointment.html', {'AppointmentForm':form})
@@ -168,6 +167,8 @@ def findAppointment(request):
 def canNotBook(request):
 	return render(request, 'canNotBook.html')
 
+def createdAppointment(request):
+	return render(request, 'createdAppointment.html')
 
 def advisorCalendar(request):
     #List of date and time bookings for advisors
