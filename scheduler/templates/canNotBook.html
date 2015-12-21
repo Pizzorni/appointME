@@ -1,12 +1,8 @@
-{% extends 'base.html' %}
-
-{% block title %}You have booked an Appointment{% endblock %}
+{% extends 'base.html' %}}
+{% block title %}You didn't an Appointment{% endblock %}
 
 {% block main %}
-The appointment you requested was not available ...please try again.
+The appointment you requested at {{ time }} on {{ date }} was not available ...please try a different time.
 <br>
 Click <a href='findAppointment.html'>here</a> to go back.
-
-	
-
 {% endblock %}
